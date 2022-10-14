@@ -37,6 +37,11 @@ dependencies:
   get: ^4.6.5
   parallax: ^1.0.3
   velocity_x: ^3.5.1
+  quick_actions: ^1.0.0
+  flutter_contacts: ^1.1.5
+  url_launcher:
+  http: ^0.13.5
+
 
 dev_dependencies:
   flutter_test:
