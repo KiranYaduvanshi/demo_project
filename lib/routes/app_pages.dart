@@ -5,4 +5,6 @@ class AppPages{
   static const transformDemo ="/transformDemo";
   static const checkBoxList ="/checkBoxList";
   static const contactList ="/contactList";
+  static const evenOdd ="/EvenOdd";
+  static const tabControllerDemo ="/tabControllerDemo";
 }

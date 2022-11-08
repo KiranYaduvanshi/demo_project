@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:demo_flutter_project/model.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class ContactController extends GetxController {
@@ -12,22 +13,42 @@ class ContactController extends GetxController {
   Rx<GetApiResponse> getdata = GetApiResponse().obs;
 
   Future<void> getContactList() async {
-    fContacts = await FlutterContacts.getContacts(
-        withProperties: true, withPhoto: true);
+    if(await FlutterContacts.requestPermission()) {
+      fContacts = await FlutterContacts.getContacts(
+          withProperties: true, withPhoto: true);
 
-    print("number ---- ${fContacts[0].displayName}");
-    print("number ---- ${fContacts.length}");
-    print("number ---- ${fContacts[0].phones[0].number}");
+      print("number ---- ${fContacts[0].displayName}");
+      print("number ---- ${fContacts.length}");
+      print("number ---- ${fContacts[0].phones[0].number}");
+    }
     update();
   }
 
   @override
   void onInit() {
+
     getContactList();
+ //   addData();
 
     //getList();
     super.onInit();
   }
+
+  Future<void> addData()async{
+    var box = await Hive.openBox('myBox');
+    await box.put('name', 'world');
+    print("data added successfully");
+  }
+
+  Future<void> readData() async{
+    var box =  await Hive.openBox('myBox');
+    Iterable name = box.values;
+    print("name ====== $name");
+
+
+
+  }
+
 
   // get single data
   Future<void> getData() async {
